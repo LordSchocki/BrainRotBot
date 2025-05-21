@@ -23,7 +23,7 @@ public class MessageEventListener extends ListenerAdapter {
         ArrayList<String> monsters = new ArrayList<>();
 
         for (String monster : triggers){
-            if (triggers.contains(monster)){
+            if (message.contains(monster)){
                 monsters.add(monster);
             }
         }

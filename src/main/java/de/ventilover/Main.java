@@ -2,12 +2,8 @@ package de.ventilover;
 
 import net.dv8tion.jda.api.JDA;
 
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.util.Properties;
 
-//TIP To <b>Run</b> code, press <shortcut actionId="Run"/> or
-// click the <icon src="AllIcons.Actions.Execute"/> icon in the gutter.
+
 public class Main {
     public static JDA api;
 
