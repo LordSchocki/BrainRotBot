@@ -7,7 +7,9 @@ import net.dv8tion.jda.api.requests.GatewayIntent;
 import net.dv8tion.jda.api.utils.cache.CacheFlag;
 
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.EnumSet;
 import java.util.Properties;
 
@@ -41,14 +43,17 @@ public class StartUp {
             GatewayIntent.SCHEDULED_EVENTS
     );
 
-    private String getToken(){
+    private String getToken() {
         Properties props = new Properties();
-        try{
-            props.load(new FileInputStream("config.properties"));
+        try (InputStream input = getClass().getClassLoader().getResourceAsStream("config.properties")) {
+            if (input == null) {
+                throw new FileNotFoundException("config.properties not found in resources");
+            }
+            props.load(input);  // <-- load from the InputStream here
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return props.getProperty("DISCORD_TOKEN");
-
     }
+
 }

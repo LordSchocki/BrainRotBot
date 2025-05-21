@@ -1,5 +1,6 @@
 plugins {
     id 'java'
+    id 'com.github.johnrengelman.shadow' version '8.1.1' // Add Shadow plugin
 }
 
 group = 'de.ventilover'
@@ -18,3 +19,17 @@ dependencies {
 test {
     useJUnitPlatform()
 }
+jar {
+    manifest {
+        attributes(
+                'Main-Class': 'de.ventilover.Main'
+        )
+    }
+
+}
+
+shadowJar {
+    archiveClassifier.set('') // Output will be something like projectname-all.jar
+
+}
+
