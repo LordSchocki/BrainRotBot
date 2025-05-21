@@ -43,7 +43,7 @@ bin/
 ### Example user template template
 ### Example user template
 
-
+src/main/resources/config.properties
 # Ignore secrets
 config.properties
 .env
