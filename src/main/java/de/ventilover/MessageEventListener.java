@@ -2,6 +2,7 @@ package de.ventilover;
 
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,7 +33,7 @@ public class MessageEventListener extends ListenerAdapter {
     }
 
     @Override
-    public void onMessageReceived(MessageReceivedEvent event) {
+    public void onMessageReceived(@NotNull MessageReceivedEvent event) {
         super.onMessageReceived(event);
         if (isBrainRotMessage(event)){
             String message = event.getMessage().getContentRaw();
@@ -70,22 +71,23 @@ private void createGifHashMap(HashMap<String,String> gifHash){
 
     private String makeResponse(String monster){
         String currentMonster = "";
-        String brainRotText = "";
-        switch (monster){
-            case "tung", "sahur":
+        String brainRotText = switch (monster) {
+            case "tung", "sahur" -> {
                 currentMonster = "tung";
-                brainRotText = "_\"Tung, tung, tung, tung, tung, tung, tung, tung, tung, sahur.\" " +
+                yield "_\"Tung, tung, tung, tung, tung, tung, tung, tung, tung, sahur.\" " +
                         "Anomali mengerikan yang hanya keluar pada sahur, konon katanya kalau ada orang yang dipanggil sahur tiga kali dan tidak nyaut, maka makhluk ini datang di rumah kalian. Hiii, seremnya! Tung Tung ini biasanya bersuara layaknya pukulan kentungan seperti ini, " +
                         "\"tung, tung, tung, tung, tung, tung, tung\" " +
                         "Share ke teman kalian yang susah sahur._";
-                break;
-            case "bombardilo", "crocodilo":
+            }
+            case "bombardilo", "crocodilo" -> {
                 currentMonster = "bombardilo";
-                brainRotText = "_  Bombardillo Coccodrillo, un fottuto alligatore volante, che vola e bombarda i bambini a Gaza, in Palestina." + "\n" +
-                        " Non crede in Allah e ama le bombe. Si nutre dello spirito di tua madre." + "\n" +
-                        " E se hai tradotto tutto questo, allora sei uno stronzo. Non rompere la battuta, prostituta. _";
-                break;
-        }
+                yield """
+                        _  Bombardillo Coccodrillo, un fottuto alligatore volante, che vola e bombarda i bambini a Gaza, in Palestina.
+                         Non crede in Allah e ama le bombe. Si nutre dello spirito di tua madre.
+                         E se hai tradotto tutto questo, allora sei uno stronzo. Non rompere la battuta, prostituta. _""";
+            }
+            default -> "";
+        };
         return gifHash.get(currentMonster) + "\n" + brainRotText;
     }
 
